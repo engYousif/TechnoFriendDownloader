@@ -1,0 +1,776 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TechnoFriend"
+        xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+        x:Class="TechnoFriend.MainWindow"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="TechnoFriend"
+        Width="380"
+        StateChanged="Window1_StateChanged"
+        Name="window1"
+        Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}"
+        WindowStyle="None"
+        MouseDown="Window1_MouseDown">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Background"
+                    Value="White"></Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup" />
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Background="Gray">
+                    <StackPanel Grid.Row="0"
+                                Height="50"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+                        <Image Source="/Images/logo.png"
+                               Margin="10,0,0,0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Width="40"
+                               Height="50"></Image>
+                        <TextBlock Text="TechnoFriend"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   FontFamily="Calibri"
+                                   FontSize="30"
+                                   Margin="10,0,0,0"></TextBlock>
+                        <Image Source="/Images/min.png" Width="30" Margin="120,-1,0,29.6" MouseDown="Image_MouseDown_1"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            Margin="10 0"
+                            Grid.Row="1"
+                            Height="50">
+                    <Button Uid="0"
+                            Style="{StaticResource ButtonStyle}"
+                            Width="70"
+                            Content="Status"
+                            Height="50"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Cursor="Hand"
+                            Foreground="#FF2196F3"
+                            Click="TabLine" />
+                    <Button Uid="1"
+                            Width="70"
+                            Content="Define"
+                            Height="50"
+                            Cursor="Hand"
+                            Style="{StaticResource ButtonStyle}"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Foreground="#FF2196F3"
+                            Click="TabLine" />
+                    <Button Uid="2"
+                            Width="70"
+                            Content="Settings"
+                            Style="{StaticResource ButtonStyle}"
+                            Height="50"
+                            Cursor="Hand"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Foreground="#FF2196F3"
+                            Click="TabLine" />
+                    <Button Uid="3"
+                            Width="70"
+                            Content="Schedular"
+                            Style="{StaticResource ButtonStyle}"
+                            Height="50"
+                            Cursor="Hand"
+                            Background="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Foreground="#FF2196F3"
+                            Click="TabLine" />
+                    <Image Margin="50,0,0,0"
+                           Source="/Images/power.png"
+                           Width="30"
+                           Height="30"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Cursor="Hand"
+                           MouseDown="Image_MouseDown"></Image>
+
+                </StackPanel>
+                <Grid x:Name="tabline"
+                      Width="70"
+                      Height="5"
+                      Grid.Row="1"
+                      Background="#FF2196F3"
+                      HorizontalAlignment="Left"
+                      Margin="10,10,10,-20" />
+
+                <TabControl SelectionChanged="TabControl_SelectionChanged"
+                            Grid.Row="2"
+                            Height="{Binding Height, ElementName=window1}"
+                            Name="tabcontrol">
+                    <!--Styling the tab-->
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border"
+                                                BorderThickness="1,1,1,0"
+                                                BorderBrush="Gainsboro"
+                                                CornerRadius="4,4,0,0"
+                                                Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                                              VerticalAlignment="Center"
+                                                              HorizontalAlignment="Center"
+                                                              ContentSource="Header"
+                                                              Margin="10,2" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected"
+                                                     Value="True">
+                                                <Setter TargetName="Border"
+                                                        Property="Background"
+                                                        Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected"
+                                                     Value="False">
+                                                <Setter TargetName="Border"
+                                                        Property="Background"
+                                                        Value="GhostWhite" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+
+                    <!--End of Styling-->
+                    <TabItem Name="statustab"
+                             Uid="0"
+                             VerticalAlignment="Top">
+                        <Grid Margin="0,0,-0.4,123">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Name="col0"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="{Binding Height,ElementName=window1}"
+                                               Name="lrow1"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+
+                            <ListBox Grid.Row="1"
+                                     Name="status_list"
+                                     BorderThickness="0"
+                                     Loaded="Status_list_Loaded"
+                                     Margin="0,0,0,130">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical">
+
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Border BorderThickness="1"
+                                                Name="_sborder"
+                                                CornerRadius="10"
+                                                BorderBrush="Black"
+                                                Width="330">
+                                            <StackPanel Orientation="Vertical"
+                                                        Margin="10">
+
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition></ColumnDefinition>
+                                                        <ColumnDefinition></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Label Content="Server Name: "
+                                                           Margin="0,0,0,0"
+                                                           Grid.Row="0"
+                                                           Grid.Column="0"></Label>
+                                                    <Label Content="Port: "
+                                                           Grid.Row="1"
+                                                           Grid.Column="0"
+                                                           Margin="0,0,0,0"></Label>
+                                                    <Label Content="Server: "
+                                                           Grid.Row="2"
+                                                           Grid.Column="0"
+                                                           Margin="0,0,0,0"></Label>
+                                                    <Label Content="File Name: "
+                                                           Grid.Row="3"
+                                                           Grid.Column="0"
+                                                           Margin="0,0,0,0"></Label>
+                                                    <Label Content="File Size: "
+                                                           Grid.Row="4"
+                                                           Grid.Column="0"
+                                                           Margin="0,0,0,0"></Label>
+                                                    <Label Content="Speed: "
+                                                           Grid.Row="5"
+                                                           Grid.Column="0"
+                                                           Margin="0,0,0,0"></Label>
+
+                                                    <ProgressBar Name="pbar"
+                                                                 
+                                                                 Margin="1"
+                                                                 Height="10"
+                                                                 Grid.Row="6"
+                                                                 Grid.Column="0"
+                                                                 Loaded="Pbar_Loaded"
+                                                                 Grid.ColumnSpan="2"
+                                                                 Value="{Binding progress, Mode=TwoWay}"
+                                                                 Width="{Binding Width,ElementName=statustoolbar}">
+
+                                                    </ProgressBar>
+
+                                                    <Label Name="srvr_name"
+                                                           Width="150"
+                                                           Grid.Row="0"
+                                                           Grid.Column="1"
+                                                           Height="25"
+                                                           Margin="0,0,0,0"
+                                                           Content="{Binding Server_Name,Mode=OneWay}" />
+                                                    <Label Name="prt"
+                                                           Height="25"
+                                                           Grid.Row="1"
+                                                           Grid.Column="1"
+                                                           Width="150"
+                                                           Margin="0,0,0,0"
+                                                           Content="{Binding Port,Mode=OneWay}"></Label>
+                                                    <Label Name="srvr"
+                                                           Width="150"
+                                                           Grid.Row="2"
+                                                           Grid.Column="1"
+                                                           Height="25"
+                                                           Margin="0,0,0,0"
+                                                           Content="{Binding Server,Mode=OneWay}"></Label>
+                                                    <Label Name="file_pth"
+                                                           Width="150"
+                                                           Height="25"
+                                                           Grid.Row="3"
+                                                           Grid.Column="1"
+                                                           Margin="0,0,0,0"
+                                                           Content="{Binding File_Path,Mode=OneWay}"></Label>
+                                                    <StackPanel Orientation="Horizontal"
+                                                                Grid.Row="4"
+                                                                Grid.Column="1">
+                                                        <Label Name="file_size"
+                                                               Content="{Binding File_Size,Mode=OneWay}"
+                                                               Height="25"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="{Binding Unit,Mode=OneWay}"
+                                                               Margin="-5,0,0,0"></Label>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="5"
+                                                                Orientation="Horizontal"
+                                                                Grid.Column="1">
+                                                        <Label Name="speedlabel"
+                                                               Content="{Binding Speed,Mode=OneWay}" />
+                                                        <Label Content="kbps"
+                                                               Margin="0,0,0,0"></Label>
+                                                    </StackPanel>
+                                                    <ToolBar Background="Black"
+                                                             ToolBarTray.IsLocked="True"
+                                                             Height="35"
+                                                             Name="statustoolbar"
+                                                             Grid.Column="0"
+                                                             Grid.Row="7"
+                                                             Grid.ColumnSpan="2"
+                                                             Margin="0,0,0,0">
+                                                        <Button Content="Stop"
+                                                                Margin="10,0,0,0"
+                                                                BorderBrush="GhostWhite"
+                                                                VerticalContentAlignment="Top"
+                                                                Foreground="White"
+                                                                IsEnabled="{Binding isStarted,Mode=TwoWay}"
+                                                                Click="Button_Click_6"
+                                                                Loaded="Button_Loaded">
+                                                        </Button>
+                                                        <Button Content="Start"
+                                                                Click="Button_Click_3"
+                                                                BorderBrush="GhostWhite"
+                                                                Loaded="Button_Loaded_1"
+                                                                IsEnabled="{Binding !isStarted,Mode=TwoWay}"
+                                                                Foreground="White"
+                                                                Margin="10,0,0,0">
+                                                        </Button>
+                                                        <Button Content="Delete"
+                                                                BorderBrush="AntiqueWhite"
+                                                                Foreground="GhostWhite"
+                                                                Margin="10,0,0,0"
+                                                                Loaded="Button_Loaded_3"
+                                                                Click="Button_Click_7">
+                                                        </Button>
+                                                    </ToolBar>
+
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Name="definetab"
+                             Uid="1">
+                        <Grid Background="White"
+                              Margin="0,0,0.4,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Name="row1"
+                                               Height="2*"></RowDefinition>
+                                <RowDefinition Height="29*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1"
+                                        HorizontalAlignment="Left" />
+                            <ListBox Name="define_list"
+                                     BorderThickness="0"
+                                     Margin="0,0,0,130"
+                                     Grid.Row="1">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical">
+
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Border BorderThickness="1"
+                                                BorderBrush="Black"
+                                                Name="borderc"
+                                                Width="340">
+                                            <StackPanel Orientation="Vertical">
+                                                <StackPanel Orientation="Horizontal">
+
+                                                    <StackPanel Orientation="Vertical"
+                                                                Margin="10">
+                                                        <Label Content="Server Name: "
+                                                               Margin="0,0,0,0"
+                                                               Height="30"></Label>
+                                                        <Label Content="Port: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="Server: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="File Path: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="Username: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="Password: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                        <Label Content="Speed: "
+                                                               Height="30"
+                                                               Margin="0,0,0,0"></Label>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical"
+                                                                Margin="10">
+                                                        <TextBox Name="server_name"
+                                                                 Width="150"
+                                                                 Height="20"
+                                                                 Text="{Binding Server_Name,Mode=TwoWay}"
+                                                                 TextChanged="Server_name_TextChanged"
+                                                                 Margin="0,0,0,10" />
+                                                        <TextBox Name="port"
+                                                                 Height="20"
+                                                                 Width="150"
+                                                                 IsEnabled="False"
+                                                                 Text="{Binding Port,Mode=TwoWay}"
+                                                                 TextChanged="Port_TextChanged"
+                                                                 Margin="0,0,0,10"></TextBox>
+                                                        <TextBox Name="server"
+                                                                 Width="150"
+                                                                 Height="20"
+                                                                 Text="{Binding Server,Mode=TwoWay}"
+                                                                 TextChanged="Server_TextChanged"
+                                                                 Margin="0,0,0,10"></TextBox>
+                                                        <TextBox Name="file_path"
+                                                                 Width="150"
+                                                                 Text="eBackup.zip"
+                                                                 IsEnabled="False"
+                                                                 TextChanged="File_path_TextChanged"
+                                                                 Height="20"
+                                                                 Margin="0,0,0,10"></TextBox>
+                                                        <TextBox Name="username"
+                                                                 Width="150"
+                                                                 Text="{Binding Username,Mode=TwoWay}"
+                                                                 Height="20"
+                                                                 TextChanged="Username_TextChanged"
+                                                                 Margin="0,0,0,10"></TextBox>
+                                                        <TextBox x:Name="password"
+                                                                 Width="150"
+                                                                 Text="{Binding Password, Mode=TwoWay}"
+                                                                 Foreground="Transparent"
+                                                                 TextChanged="Password_TextChanged"
+                                                                 Height="20"
+                                                                 CommandManager.PreviewExecuted="Password_PreviewExecuted"
+                                                                 Margin="0,0,0,10"></TextBox>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBox x:Name="speed"
+                                                                     Width="110"
+                                                                     Text="{Binding Speed, Mode=TwoWay}"
+                                                                     TextChanged="Speed_TextChanged"
+                                                                     Height="20"></TextBox>
+                                                            <Label Content="Kbps"></Label>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <ToolBar Background="Black"
+                                                             ToolBarTray.IsLocked="True"
+                                                             Height="35"
+                                                             Margin="0,0,0,0">
+
+                                                        <Button Content="Delete"
+                                                                BorderBrush="GhostWhite"
+                                                                Foreground="White"
+                                                                Click="Button_Click_2"
+                                                                Margin="10,0,0,0">
+                                                        </Button>
+                                                        <Button Content="Run"
+                                                                Click="Button_Click_1"
+                                                                BorderBrush="AntiqueWhite"
+                                                                Foreground="GhostWhite"
+                                                                Margin="10,0,0,0"></Button>
+                                                    </ToolBar>
+
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <ToolBar HorizontalAlignment="Left"
+                                     Height="{Binding Height,ElementName=row1}"
+                                     Grid.Column="1"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="1"
+                                     ToolBarTray.IsLocked="True"
+                                     VerticalAlignment="Top"
+                                     Width="375">
+                                <Button Width="25"
+                                        Height="25"
+                                        Margin="0,-1,0,-1.6"
+                                        Click="Button_Click"
+                                        VerticalAlignment="Bottom">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="/Images/add.png"
+                                                    RenderOptions.EdgeMode="Aliased"
+                                                    RenderOptions.BitmapScalingMode="HighQuality"></ImageBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="Set Speed"
+                                       Margin="20,0,0,0"></Label>
+                                <TextBox Width="50"
+                                         Name="speedTextBox"
+                                         TextChanged="TextBox_TextChanged"></TextBox>
+                                <Label Name="noofitems"
+                                       Content="0"
+                                       Margin="20,0,0,0"
+                                       VerticalAlignment="Top"></Label>
+                                <TextBlock Text="Downloads"
+                                           VerticalAlignment="Center"></TextBlock>
+                            </ToolBar>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="settingstab"
+                             Uid="2">
+                        <Grid Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="10">
+                                <StackPanel Orientation="Horizontal"
+                                            VerticalAlignment="Top">
+                                    <TextBlock Text="Output Folder: "
+                                               VerticalAlignment="Center"></TextBlock>
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Width="250"
+                                             Loaded="Path_Loaded"
+                                             TextAlignment="Left"
+                                             VerticalContentAlignment="Center"
+                                             Text=""
+                                             Name="path"
+                                             TextChanged="Path_TextChanged"></TextBox>
+                                    <Button Content="Browse.."
+                                            Height="25"
+                                            Width="50"
+                                            Click="Button_Click_4"></Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="schedtab">
+                        <!--Schedular-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Header="Selection"
+                                      Name="selection"
+                                      IsEnabled="False"
+                                      FontSize="10" Margin="10,20,0,0">
+                                <StackPanel HorizontalAlignment="Left">
+                                    <!--Selection-->
+                                    <ComboBox Margin="10,10,10,10"
+                                              Width="120"
+                                              SelectionChanged="ComboBox_SelectionChanged"
+                                              Name="schedcombo"
+                                              Height="17">
+                                        <ComboBoxItem>
+                                            <TextBlock Text="First" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock Text="Last" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <TextBlock Text="From" />
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="10,0,0,0">
+                                        <TextBlock Text="From "
+                                                   FontSize="10"
+                                                   Name="fromtb" />
+                                        <TextBox Text=""
+                                                 Width="40"
+                                                 Name="fromtx" />
+                                        <TextBlock Text=" To "
+                                                   Name="totb"
+                                                   FontSize="10" />
+                                        <TextBox Text=""
+                                                 Name="totx"
+                                                 Width="40" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <!--Ovveride speed stack panel-->
+                            <StackPanel Grid.Column="1"
+                                        Grid.RowSpan="2"
+                                        Margin="10,20,10,0" >
+                                <GroupBox Grid.Row="0"
+                                          Grid.Column="1">
+                                    <GroupBox.Header>
+                                        <CheckBox Content="Override Speed"
+                                                  FontSize="10"
+                                                  Name="overridecb"
+                                                  Checked="CheckBox_Checked"
+                                                  Unchecked="CheckBox_Unchecked"></CheckBox>
+                                    </GroupBox.Header>
+                                    <StackPanel Margin="0,10,0,0"
+                                                HorizontalAlignment="Left"
+                                                Orientation="Horizontal">
+                                        <TextBox Width="130" Name="overridespeed" IsEnabled="False" TextChanged="Overridespeed_TextChanged"></TextBox>
+                                        <TextBlock Text=" Kbps"
+                                                   FontSize="10"></TextBlock>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Timing"
+                                          FontSize="10"
+                                          Margin="0,6,0,0">
+
+                                    <Grid Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="9*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image MouseDown="Checkpic_MouseDown" Source="/Images/check.png" Width="15" Grid.Column="1" Grid.Row="0" Height="13" Name="checkpic" Visibility="Hidden"/>
+                                        <CheckBox Content="On Datetime"
+                                                  FontSize="10" 
+                                                  Margin="0,10,0,0"
+                                                  Grid.Column="0" Grid.Row="0"
+                                                  Checked="Datecb_Checked"
+                                                  Name="datecb"
+                                                      Unchecked="Datecb_Unchecked"/>
+
+                                        <StackPanel Orientation="Horizontal"
+                                                            Grid.Column="0" Grid.Row="1"
+                                                        Margin="0,10,0,0">
+                                            <TextBlock Text="Date"
+                                                           FontSize="10"></TextBlock>
+                                            <DatePicker Name="dateofrun"
+                                                            FontSize="10"
+                                                            SelectedDateChanged="Dateofrun_SelectedDateChanged"
+                                                            IsEnabled="False"
+                                                            VerticalAlignment="Center"
+                                                        Loaded="Dateofrun_Loaded"
+                                                            VerticalContentAlignment="Center"
+                                                            Margin="10,-3,0,0"
+                                                            Width="100"
+                                                            Height="20"></DatePicker>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                            Grid.Column="0" Grid.Row="2"
+                                                        Margin="0,5,0,0">
+                                            <TextBlock Text="Time" />
+                                            <toolkit:TimePicker Margin="10,0,0,10"
+                                                                    FontSize="10"
+                                                                    Width="100"
+                                                                    Name="timeofrun"
+                                                                        ValueChanged="Timeofrun_ValueChanged"
+                                                                    IsEnabled="False"
+                                                                    Height="17"></toolkit:TimePicker>
+                                        </StackPanel>
+
+
+                                    </Grid>
+
+
+
+                                </GroupBox>
+                            </StackPanel>
+                            <!--Override-->
+
+                            <StackPanel Orientation="Vertical"
+                                        Height="360"
+                                        Grid.Row="1"
+                                        Margin="10"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2">
+                                <CheckBox
+                                          Name="selectall"
+                                          Content="Select All"
+                                          Checked="Selectall_Checked"
+                                          Unchecked="Selectall_Unchecked"
+                                          FontSize="10"
+                                          Margin="0,0,-0.4,0" />
+                                <ListBox Height="290"
+                                         Margin="0,10,0,0"
+                                         Grid.Row="1"
+                                         Loaded="Tasksselector_Loaded"
+                                         Grid.RowSpan="2"
+                                         
+                                         Grid.Column="0"
+                                         Grid.ColumnSpan="2" 
+                                         Name="tasksselector">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox Content="{Binding Server_Name,Mode=OneWay}" IsChecked="{Binding isChecked,Mode=TwoWay}"></CheckBox>
+                                                <TextBlock Margin="50,0,0,0" Text="{Binding Path=progress, Mode=TwoWay}"></TextBlock>
+                                                <TextBlock Text="%" ></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+
+                                </ListBox>
+
+                            </StackPanel>
+
+                            <StackPanel Margin="85,100,0,0"
+                                        Orientation="Horizontal"
+                                        Grid.Row="3"
+                                        Height="20"
+                                        Grid.ColumnSpan="2">
+                                <Button Content="Start"
+                                        Name="startButton"
+                                        Width="100" Click="Button_Click_5" />
+                                <Button Content="Stop"
+                                        IsEnabled="False"
+                                        Margin="5,0,0,0"
+                                        Name="stopButton"
+                                        Width="100" Click="StopButton_Click" />
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

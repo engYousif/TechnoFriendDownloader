@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="technodb" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\technodb.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="TechnoFriend.Properties.Settings" SettingsPropertyName="technodbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Define" Member="Defines">
+    <Type Name="Define">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="server" Member="Server" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Server_Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="File_Path" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Port" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="File_Size" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Last_Modified" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Speed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isChecked" Type="System.Boolean" CanBeNull="true" />
+      <Column Name="progress" Type="System.Double" CanBeNull="false" />
+      <Column Name="isStarted" Type="System.Boolean" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SettingsTable" Member="SettingsTables">
+    <Type Name="SettingsTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="path" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="dueDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="startDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
