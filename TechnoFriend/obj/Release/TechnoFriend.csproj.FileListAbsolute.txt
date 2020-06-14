@@ -41,3 +41,4 @@ C:\Users\user\source\repos\TechnoFriend\TechnoFriend\obj\Release\TechnoFriend.cs
 C:\Users\user\source\repos\TechnoFriend\TechnoFriend\obj\Release\TechnoFriend.csproj.CopyComplete
 C:\Users\user\source\repos\TechnoFriend\TechnoFriend\obj\Release\TechnoFriend.exe
 C:\Users\user\source\repos\TechnoFriend\TechnoFriend\obj\Release\TechnoFriend.pdb
+C:\Users\user\source\repos\TechnoFriend\TechnoFriend\obj\Release\TechnoFriend.csprojAssemblyReference.cache

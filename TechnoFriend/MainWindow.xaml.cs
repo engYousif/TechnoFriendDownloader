@@ -754,6 +754,12 @@ namespace TechnoFriend
             startSched = false;
         }
 
+        public static bool CheckTime(DateTime dt)
+        {
+            return Math.Abs((dt - DateTime.Now).Hours) == 0 && Math.Abs((dt - DateTime.Now).Minutes) <= 3 && Math.Abs((dt - DateTime.Now).Seconds) <= 59;
+        }
+
+
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             startSched = true;
@@ -840,7 +846,8 @@ namespace TechnoFriend
                    {
                        //do nothing
                    }
-                   else if (runningArray.Count > 0 && DateTime.Now == dueDate)
+                   //else if (runningArray.Count > 0 && DateTime.Now == dueDate)
+                   else if (runningArray.Count > 0 && CheckTime(dueDate.Value))
                    {
                        foreach (Define def in status_list.Items)
                        {
